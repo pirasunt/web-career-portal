@@ -1,0 +1,11 @@
+{
+  "name": "comp_353_server",
+  "version": "1.0.0",
+  "description": "This package will be used as a middleware between angular front-end and mysql database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
