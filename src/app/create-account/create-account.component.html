@@ -1,0 +1,31 @@
+<div class="container-fluid h-100 bg-primary">
+
+   <div class="row">
+    <div class="col">
+        <h1 class="display-4 text-center">Create an Account</h1>
+    </div>
+   </div>
+
+    <div class="row h-100">
+        <div class=" border border-dark rounded-lg shadow-lg bg-light col-md-3 my-auto mx-auto px-4 py-5">
+
+            <form [formGroup]="AccountForm" (ngSubmit)="onSubmit()">
+
+                    <label for="name">Full Name</label>
+                    <input type="name" formControlName="name" class="form-control" id="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" formControlName="email" class="form-control" id="email" required>
+
+
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="password" required>
+
+                    <label for="phone">Tel No.</label>
+                    <input type="tel" formControlName="phone" class="form-control" id="phone" required> <br>
+       
+                <button type="submit" class="btn btn-primary float-right ml-2">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
