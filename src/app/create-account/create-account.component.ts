@@ -21,10 +21,10 @@ export class CreateAccountComponent implements OnInit {
     qualifications: new FormControl('')
   })
 
-  gotResponse:boolean;
-  success:boolean;
+  gotResponse: boolean;
+  success: boolean;
 
-  constructor(private requestMaker: RequestMakerService, private router:Router) {
+  constructor(private requestMaker: RequestMakerService, private router: Router) {
     this.gotResponse = false
     this.success = false
   }
@@ -34,28 +34,29 @@ export class CreateAccountComponent implements OnInit {
 
   onSubmit() {
 
-    var user: Employee = {
-      siteUser:{
-        email: this.AccountForm.get("email").value,
-        accPassword: this.AccountForm.get("password").value,
-        userType: "EMPLOYEE",
-        fullName: this.AccountForm.get("name").value,
-        telephoneNum: this.AccountForm.get("phone").value
-      },
-      category:"BASIC",
-      isActive:true,
-      qualifications:this.AccountForm.get("qualifications").value,
+    var user: SiteUser = {
+
+      email: this.AccountForm.get("email").value,
+      accPassword: this.AccountForm.get("password").value,
+      userType: "EMPLOYEE",
+      fullName: this.AccountForm.get("name").value,
+      telephoneNum: this.AccountForm.get("phone").value,
+      employee: {
+      category: "BASIC",
+      isActive: true,
+      qualifications: this.AccountForm.get("qualifications").value
+      }
 
     }
 
     this.requestMaker.createAccount(user).subscribe(resp => {
       this.gotResponse = true
-      if(resp.status == 200){
+      if (resp.status == 200) {
         this.success = true;
-        setTimeout(()=>{
+        setTimeout(() => {
           this.router.navigate([""]);
         }, 3000)
-        
+
       }
     })
 

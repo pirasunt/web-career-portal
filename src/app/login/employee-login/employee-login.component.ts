@@ -33,8 +33,8 @@ export class EmployeeLoginComponent implements OnInit {
   onSubmit() {
     this.authService.login({
       email: this.loginForm.get("email").value,
-      password:this.loginForm.get("password").value
-    })
+      password:this.loginForm.get("password").value,
+    }, "employee")
   }
 
 }

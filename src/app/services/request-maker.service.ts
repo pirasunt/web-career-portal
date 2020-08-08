@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Employee } from 'src/app/models/employee'
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { SiteUser } from '../models/site-user';
 
 const api = "http://localhost:8080" //server address + port
 @Injectable({
@@ -14,8 +14,8 @@ export class RequestMakerService {
   private token: string;
   constructor(private http:HttpClient) { }
 
-  createAccount(user:Employee) {
-    return this.http.post<Employee>(api + "/createUser", user, { observe: 'response' }).pipe(
+  createAccount(user:SiteUser) {
+    return this.http.post<SiteUser>(api + "/createUser", user, { observe: 'response' }).pipe(
       catchError(this.regErr));
   }
 
