@@ -1,0 +1,23 @@
+<div class="container-fluid h-100 bg-danger">
+
+    <app-login-toolbar loginType="Administrator"></app-login-toolbar>
+
+    <div class="row">
+        <div class=" border border-dark rounded-lg shadow-lg bg-light col-md-3 my-auto mx-auto px-4 py-5">
+
+            <form [formGroup] ="loginForm" ngNativeValidate (ngSubmit) = "onSubmit()">
+
+
+                <label for="email">Email</label>
+                <input type="email" class="form-control" formControlName="email" id="email" required>
+
+
+                <label for="password">Password</label>
+                <input type="password" class="form-control" formControlName ="password" id="password" required>
+                <br>
+            <button type="submit" class="btn btn-primary float-right ml-2">Login</button>
+
+        </form>
+        </div>
+    </div>
+</div>
