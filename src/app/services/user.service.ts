@@ -33,6 +33,22 @@ export class UserService {
     }
   }
 
+  if(type == "employer") {
+    this.currentUser = {
+      email: data.email,
+      accPassword : data.password,
+      userType: type,
+      fullName: data.fullName,
+      telephoneNum:data.telephoneNum,
+      accountBalance:data.accountBalance,
+      employer:{
+        category:data.employeeCategory,
+        industry:data.employerIndustry,
+
+      }
+    }
+  }
+
   console.log(this.currentUser)
 
   }

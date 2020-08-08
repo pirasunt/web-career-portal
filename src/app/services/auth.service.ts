@@ -44,7 +44,7 @@ export class AuthService {
 
       }).subscribe((response: any) => {
         if (response.auth === true && response.token !== undefined) {
-          if(!!response.u.isActive){
+          if((type == "employee" && !!response.u.isActive) || type == "employer" || type=="admin"){
           this.userService.initializeUser(type, response.u)
           this.token = response.token;
           this.server.setLoggedIn(true, this.token);

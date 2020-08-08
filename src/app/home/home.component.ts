@@ -10,7 +10,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private userService:UserService) { }
 
+  userType:string
   ngOnInit(): void {
+    this.userType = this.userService.getSiteUser().userType
   }
 
 }
