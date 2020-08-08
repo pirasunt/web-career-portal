@@ -1,1 +1,8 @@
+<div class="container-fluid" *ngIf="authService.isAuthenticated()">
+  <div class="row mt-2">
+    <div class="col ">
+      <button type="button" (click)="onLogout()" class="btn btn-primary float-right">Logout</button>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

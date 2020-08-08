@@ -4,12 +4,15 @@ import { EmployeeLoginComponent } from './login/employee-login/employee-login.co
 import { EmployerLoginComponent } from './login/employer-login/employer-login.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import {AuthGuard} from 'src/app/auth.guard'
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: 'login', component: EmployeeLoginComponent },
   { path: 'emp-login', component:EmployerLoginComponent},
   { path: 'admin-login', component: AdminLoginComponent},
-  {path : 'create-account', component: CreateAccountComponent}
+  {path : 'create-account', component: CreateAccountComponent},
+  {path : '', component:HomeComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

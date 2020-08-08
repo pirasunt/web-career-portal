@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const router = require('./router')
+const router = require('./router');
+const bearerToken = require('express-bearer-token');
 
 const connection = mysql.createConnection({
     host     : 'localhost',
@@ -19,6 +20,7 @@ const connection = mysql.createConnection({
   const app = express()
   .use(cors())
   .use(bodyParser.json())
+  .use(bearerToken())
   .use(router(connection));
   
   app.listen(port, () => {

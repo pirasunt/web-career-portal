@@ -10,6 +10,8 @@ import { LoginToolbarComponent } from './login/login-toolbar/login-toolbar.compo
 import { CreateAccountComponent } from './create-account/create-account.component';
 import {HttpClientModule} from '@angular/common/http'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     EmployerLoginComponent,
     AdminLoginComponent,
     LoginToolbarComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -26,8 +29,19 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter:tokenGetter,
+        allowedDomains:["localhost"]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}

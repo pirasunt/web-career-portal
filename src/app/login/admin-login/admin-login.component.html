@@ -5,19 +5,19 @@
     <div class="row">
         <div class=" border border-dark rounded-lg shadow-lg bg-light col-md-3 my-auto mx-auto px-4 py-5">
 
-            <form>
+            <form [formGroup] ="loginForm" ngNativeValidate (ngSubmit) = "onSubmit()">
 
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" class="form-control" id="loginEmail" required>
 
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" class="form-control" id="loginPassword" required>
-                </div>
-                <button type="submit" class="btn btn-primary float-right ml-2">Login</button>
-            </form>
+                <label for="email">Email</label>
+                <input type="email" class="form-control" formControlName="email" id="email" required>
+
+
+                <label for="password">Password</label>
+                <input type="password" class="form-control" formControlName ="password" id="password" required>
+                <br>
+            <button type="submit" class="btn btn-primary float-right ml-2">Login</button>
+
+        </form>
         </div>
     </div>
 </div>

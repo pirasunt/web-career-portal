@@ -9,10 +9,10 @@
     <div class="row h-100">
         <div class=" border border-dark rounded-lg shadow-lg bg-light col-md-3 my-auto mx-auto px-4 py-5">
 
-            <form [formGroup]="AccountForm" (ngSubmit)="onSubmit()">
+            <form *ngIf="!gotResponse" [formGroup]="AccountForm" (ngSubmit)="onSubmit()" ngNativeValidate>
 
                     <label for="name">Full Name</label>
-                    <input type="name" formControlName="name" class="form-control" id="name" required>
+                    <input type="text" formControlName="name" class="form-control" id="name" required>
 
                     <label for="email">Email</label>
                     <input type="email" formControlName="email" class="form-control" id="email" required>
@@ -23,9 +23,15 @@
 
                     <label for="phone">Tel No.</label>
                     <input type="tel" formControlName="phone" class="form-control" id="phone" required> <br>
+
+                    <label for="qualifications">Qualifications</label>
+                    <input type="text" formControlName="qualifications" class="form-control" id="phone"> <br>
        
                 <button type="submit" class="btn btn-primary float-right ml-2">Create</button>
             </form>
+
+            <h1 *ngIf="gotResponse && success" class="display-4">Account Created!</h1>
+
         </div>
     </div>
 </div>
