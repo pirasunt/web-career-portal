@@ -1,1 +1,7 @@
-<p class="lead">Welcome {{userType}}</p>
+<div class="container">
+    <h4>Welcome {{siteUser.fullName}}</h4> <br>
+
+    <div *ngIf="siteUser.userType == 'EMPLOYEE'" class="container">
+        <p class="lead">Account Type: {{siteUser.employee.category}}</p>
+    </div>
+</div>

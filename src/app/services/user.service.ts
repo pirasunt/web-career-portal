@@ -15,13 +15,13 @@ export class UserService {
   constructor() { }
 
 
-  initializeUser(type:string, data:any){
+  initializeUser(data:any){
 
-  if(type == "employee") {
+  if(data.userType == "EMPLOYEE") {
     this.currentUser = {
       email: data.email,
       accPassword : data.password,
-      userType: type,
+      userType: data.userType,
       fullName: data.fullName,
       telephoneNum:data.telephoneNum,
       accountBalance:data.accountBalance,
@@ -33,11 +33,11 @@ export class UserService {
     }
   }
 
-  if(type == "employer") {
+  if(data.userType == "EMPLOYER") {
     this.currentUser = {
       email: data.email,
       accPassword : data.password,
-      userType: type,
+      userType: data.userType,
       fullName: data.fullName,
       telephoneNum:data.telephoneNum,
       accountBalance:data.accountBalance,

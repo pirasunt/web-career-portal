@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,9 +14,14 @@ export class EmployerLoginComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl('')
   })
-  constructor(private authService:AuthService) { }
+  constructor(private router:Router, private authService:AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  goTo(arg:string){
+    this.router.navigate(["/" + arg])
+
   }
 
   onSubmit() {

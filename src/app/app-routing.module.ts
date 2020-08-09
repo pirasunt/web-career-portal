@@ -4,14 +4,21 @@ import { EmployeeLoginComponent } from './login/employee-login/employee-login.co
 import { EmployerLoginComponent } from './login/employer-login/employer-login.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
-import {AuthGuard} from 'src/app/auth.guard'
+import {AuthGuard} from 'src/app/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { EmployerPrimeComponent } from './dashboards/employer-prime/employer-prime.component';
+import { EmployerGoldComponent } from './dashboards/employer-gold/employer-gold.component';
+import { EmployeeBasicComponent } from './dashboards/employee-basic/employee-basic.component';
+import { EmployeePrimeComponent } from './dashboards/employee-prime/employee-prime.component';
+import { EmployeeGoldComponent } from './dashboards/employee-gold/employee-gold.component';
+import { AdminDashboardComponent } from './dashboards/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: EmployeeLoginComponent },
   { path: 'emp-login', component:EmployerLoginComponent},
   { path: 'admin-login', component: AdminLoginComponent},
   {path : 'create-account', component: CreateAccountComponent},
+
   {path : '', component:HomeComponent, canActivate:[AuthGuard]}
 ];
 
