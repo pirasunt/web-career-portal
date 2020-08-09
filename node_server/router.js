@@ -52,7 +52,7 @@ function createRouter(db) {
 
   router.post('/login', function (req, res) {
     if(req.body.type == "employee") {
-    db.query("SELECT S.email, accPassword AS password, fullName, telephoneNum, accountBalance, employeeCategory, isActive, qualifications FROM SiteUser S INNER JOIN Employee E ON (S.email = E.email) WHERE S.email=?", req.body.email, function (err, user) {
+    db.query("SELECT S.email, accPassword AS password, fullName, telephoneNum, userType, accountBalance, employeeCategory, isActive, qualifications FROM SiteUser S INNER JOIN Employee E ON (S.email = E.email) WHERE S.email=?", req.body.email, function (err, user) {
       if (err) return res.status(500).send({ status: 'Server error', err: err });
       if (!user[0]) return res.status(404).send('User not found');
 
@@ -71,7 +71,7 @@ function createRouter(db) {
 
   if(req.body.type == "employer"){
 console.log("employer")
-    db.query("SELECT S.email, accPassword AS password, fullName, telephoneNum, accountBalance, employerCategory, employerIndustry FROM SiteUser S INNER JOIN Employer E ON (S.email = E.email) WHERE S.email=?", req.body.email, function (err, user) {
+    db.query("SELECT S.email, accPassword AS password, fullName, userType, telephoneNum, accountBalance, employerCategory, employerIndustry FROM SiteUser S INNER JOIN Employer E ON (S.email = E.email) WHERE S.email=?", req.body.email, function (err, user) {
       if (err) return res.status(500).send({ status: 'Server error', err: err });
       if (!user[0]) return res.status(404).send('User not found');
 

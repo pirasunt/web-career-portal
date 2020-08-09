@@ -25,6 +25,8 @@ export class AuthService {
       this.token = user.token;
       this.server.setLoggedIn(true, this.token);
       this.loggedIn.next(true);
+      this.userService.initializeUser(user.userData);
+
     }
   }
 
@@ -45,14 +47,19 @@ export class AuthService {
       }).subscribe((response: any) => {
         if (response.auth === true && response.token !== undefined) {
           if((type == "employee" && !!response.u.isActive) || type == "employer" || type=="admin"){
-          this.userService.initializeUser(type, response.u)
+            console.log("in login")
+          this.userService.initializeUser(response.u)
           this.token = response.token;
           this.server.setLoggedIn(true, this.token);
           this.loggedIn.next(true);
-          const userData = {
+          const tokenStorage = {
             token: this.token,
           };
-          localStorage.setItem('token', JSON.stringify(userData)); //save the login token in user's local storage. Valid for 24hours
+          const userData = {
+            userData:response.u
+          }
+          localStorage.setItem('token', JSON.stringify(tokenStorage)); //save the login token in user's local storage. Valid for 24hours
+          localStorage.setItem('user', JSON.stringify(userData)); //saves login info to local storage
           this.router.navigateByUrl('/');
         }
         else {
@@ -66,7 +73,7 @@ export class AuthService {
   logout() {
     this.server.setLoggedIn(false);
     delete this.token;
-
+  
     this.loggedIn.next(false);
     localStorage.clear();
     this.router.navigate(['/']);
