@@ -15,7 +15,11 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" formControlName ="password" required>
                 <br>
+                <!---->
             <button type="submit" class="btn btn-primary float-right ml-2">Login</button>
+            <button type="button" class="btn btn-primary float-right" (click)="goTo('create-account')">Create Account</button>
+            <div class="f_password" (click)="goTo('forget-password')">Forget password</div>
+            <!--the forget password can by handled handled through the user request tables-->
         </form>
         </div>
     </div>
