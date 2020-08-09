@@ -12,6 +12,12 @@ import {HttpClientModule} from '@angular/common/http'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { EmployerPrimeComponent } from './dashboards/employer-prime/employer-prime.component';
+import { EmployerGoldComponent } from './dashboards/employer-gold/employer-gold.component';
+import { EmployeeBasicComponent } from './dashboards/employee-basic/employee-basic.component';
+import { EmployeePrimeComponent } from './dashboards/employee-prime/employee-prime.component';
+import { EmployeeGoldComponent } from './dashboards/employee-gold/employee-gold.component';
+import { AdminDashboardComponent } from './dashboards/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +27,13 @@ import { JwtModule } from '@auth0/angular-jwt';
     AdminLoginComponent,
     LoginToolbarComponent,
     CreateAccountComponent,
-    HomeComponent
+    HomeComponent,
+    EmployerPrimeComponent,
+    EmployerGoldComponent,
+    EmployeeBasicComponent,
+    EmployeePrimeComponent,
+    EmployeeGoldComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
