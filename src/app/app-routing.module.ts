@@ -19,13 +19,6 @@ const routes: Routes = [
   { path: 'admin-login', component: AdminLoginComponent},
   {path : 'create-account', component: CreateAccountComponent},
 
-  {path : 'admin-dashboard', component: AdminDashboardComponent},
-  {path : 'employee-basic', component: EmployeeBasicComponent},
-  {path : 'employee-gold', component: EmployeeGoldComponent},
-  {path : 'employee-prime', component: EmployeePrimeComponent},
-  {path : 'employer-gold', component: EmployerGoldComponent},
-  {path : 'employer-prime', component: EmployerPrimeComponent},
-
   {path : '', component:HomeComponent, canActivate:[AuthGuard]}
 ];
 

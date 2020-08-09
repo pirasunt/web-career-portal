@@ -19,6 +19,7 @@ import { EmployeePrimeComponent } from './dashboards/employee-prime/employee-pri
 import { EmployeeGoldComponent } from './dashboards/employee-gold/employee-gold.component';
 import { AdminDashboardComponent } from './dashboards/admin-dashboard/admin-dashboard.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,7 @@ import { AdminDashboardComponent } from './dashboards/admin-dashboard/admin-dash
     EmployeeBasicComponent,
     EmployeePrimeComponent,
     EmployeeGoldComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,

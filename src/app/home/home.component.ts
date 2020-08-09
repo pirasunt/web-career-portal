@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { SiteUser } from '../models/site-user';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private userService:UserService) { }
 
-  userType:string
+  siteUser:SiteUser
   ngOnInit(): void {
-    this.userType = this.userService.getSiteUser().userType
+    this.siteUser = this.userService.getSiteUser()
   }
 
 }
