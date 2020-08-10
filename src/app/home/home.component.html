@@ -3,5 +3,74 @@
 
     <div *ngIf="siteUser.userType == 'EMPLOYEE'" class="container">
         <p class="lead">Account Type: {{siteUser.employee.category}}</p>
+
+        <div class="row">
+            <div *ngFor="let job of jobs$ | async" class="col-12">
+                <div *ngIf="!!job.isActive == true">
+                    <app-job-thumbnail [job]="job" [siteUser]="siteUser" [applications] ="applications"></app-job-thumbnail>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="siteUser.userType == 'EMPLOYER'" class="container">
+        <p class="lead">Account Type: {{siteUser.employer.category}}</p>
+
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#jobCreation"> Post a Job</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="jobCreation" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Post a job</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div *ngIf="!isSubmitted" class="modal-body">
+                                <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+
+                                    <label for="jobTitle">Job Title</label>
+                                    <input type="text" formControlName="jobTitle" class="form-control" required>
+
+
+                                    <label for="jobTitle">Job Category</label>
+                                    <input type="text" formControlName="jobCategory" class="form-control" required>
+                                    
+                                    
+                                    <label for="jobTitle">Salary</label>
+                                    <input type="number" formControlName="salary" class="form-control" required>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Create Job</button>
+                                </form>
+                            </div>
+                            <div *ngIf="isSubmitted" class="modal-body">
+                                <h3 class>Job has been posted successfully.</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="resetSubmit()"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+        <hr>
+        <p class="lead"> My Jobs</p>
+        <div class="row">
+            <div *ngFor="let job of jobs$ | async" class="col-12">
+                <div *ngIf="job.email == siteUser.email">
+                <app-job-thumbnail [job]="job" [siteUser]="siteUser" [applications] ="applications"></app-job-thumbnail>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

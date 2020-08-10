@@ -1,4 +1,3 @@
-import { EmployeeLoginComponent } from '../login/employee-login/employee-login.component';
 import { Employee } from './employee';
 import { Employer} from './employer';
 

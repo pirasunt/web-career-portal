@@ -8,8 +8,7 @@ import { Employer } from '../models/employer';
 })
 export class UserService {
 
-  private currentUser:SiteUser;//Will be used to store admin, since admin itself does not have any attributes of itself
-
+  private currentUser:SiteUser;
 
 
   constructor() { }
@@ -42,7 +41,7 @@ export class UserService {
       telephoneNum:data.telephoneNum,
       accountBalance:data.accountBalance,
       employer:{
-        category:data.employeeCategory,
+        category:data.employerCategory,
         industry:data.employerIndustry,
 
       }

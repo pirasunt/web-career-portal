@@ -1,0 +1,58 @@
+<div *ngIf="siteUser.userType == 'EMPLOYEE'" class="card">
+  <div class="card-header">
+    Job Title: {{job.jobTitle}} <span *ngIf="didUserApply()" class="badge badge-primary text-wrap">Applied on {{applicationDate}}</span> <span class="small float-right"> Posted on {{job.postedDate}}</span>
+  </div>
+  <div class="card-body">
+    <div>
+      <p>Employer: <mark>{{job.fullName}}</mark></p>
+      <p>Category: {{job.jobCategory}}</p>
+      <p>Salary: {{job.salary}}$</p>
+      <div class="float-right">
+      <button type="button" class="btn" (click)="sendApplication()" [ngClass]="didUserApply() ? 'btn-secondary' : 'btn-success'" [disabled]="didUserApply()">{{didUserApply() ? "Applied" : "Apply"}}</button>
+      &nbsp;<button *ngIf="didUserApply()" (click)="cancelApplication()" type="button" class="btn btn-danger">Cancel</button>
+      </div> 
+      
+    </div>
+  </div>
+</div>
+
+
+<!--Employer-->
+<br>
+<div *ngIf="siteUser.userType == 'EMPLOYER'" class="card">
+  <div class="card-header">
+    Job Title: {{job.jobTitle}} <span class="small float-right"> Posted on {{job.postedDate}}</span>
+  </div>
+  <div class="card-body">
+    <div>
+      <p>Number of applicant: {{numberOfApplicants}}</p>
+      <p>Category: {{job.jobCategory}}</p>
+      <p>Salary Offered: {{job.salary}}$</p>
+
+      <button type="button" class="btn btn-danger float-right" data-toggle="modal" [attr.data-target]="'#confirm' + job.jobID">Delete</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="confirm{{job.jobID}}" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" [innerHTML] ="modalBody">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+              <button *ngIf="deleteButtonVisible" type="button" class="btn btn-danger" (click) = "deleteJob(job.jobID)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
