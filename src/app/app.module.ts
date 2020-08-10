@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { JobComponent } from './job/job.component';
 import { JobThumbnailComponent } from './job-thumbnail/job-thumbnail.component';
+import { AccountChangeComponent } from './account-change/account-change.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { JobThumbnailComponent } from './job-thumbnail/job-thumbnail.component';
     HomeComponent,
     JobComponent,
     JobThumbnailComponent,
+    AccountChangeComponent,
   ],
   imports: [
     BrowserModule,

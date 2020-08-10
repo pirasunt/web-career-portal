@@ -49,6 +49,73 @@ function createRouter(db) {
 
   });
 
+  router.post('/updateUser', function (req, res) {
+
+    if (req.body.newUserInfo.userType == "EMPLOYEE") {
+      db.beginTransaction(function (err) {
+        if (err) { throw err; } else {
+          db.query("UPDATE SiteUser SET email=?, accPassword=?, fullName=?, telephoneNum=? WHERE email=?",
+            [req.body.newUserInfo.email, req.body.newUserInfo.accPassword, req.body.newUserInfo.fullName, req.body.newUserInfo.telephoneNum, req.body.oldEmail], function (err, result) {
+              if (err) {
+                db.rollback();
+                console.log(err);
+                return res.status(500).json({ status: 'error' });
+              } else {
+                db.query("UPDATE Employee SET qualifications=? WHERE email=?", [req.body.newUserInfo.employee.category, req.body.newUserInfo.email], function (err, result) {
+                  if (err) {
+                    db.rollback();
+                    console.log(err);
+                    return res.status(500).json({ status: 'error' });
+                  } else {
+                    db.commit(function (err) {
+                      if (err) {
+                        return db.rollback(function () {
+                          throw err;
+                        });
+                      }
+                    });
+                    res.status(200).json(result);
+                  }
+                })
+              }
+            })
+        }
+      })
+    }
+
+
+    if (req.body.newUserInfo.userType == "EMPLOYER") {
+      db.beginTransaction(function (err) {
+        if (err) { throw err; } else {
+          db.query("UPDATE SiteUser SET email=?, accPassword=?, fullName=?, telephoneNum=? WHERE email=?",
+            [req.body.newUserInfo.email, req.body.newUserInfo.accPassword, req.body.newUserInfo.fullName, req.body.newUserInfo.telephoneNum, req.body.oldEmail], function (err, result) {
+              if (err) {
+                db.rollback();
+                console.log(err);
+                return res.status(500).json({ status: 'error' });
+              } else {
+                db.query("UPDATE Employer SET employerIndustry=? WHERE email=?", [req.body.newUserInfo.employer.industry, req.body.newUserInfo.email], function (err, result) {
+                  if (err) {
+                    db.rollback();
+                    console.log(err);
+                    return res.status(500).json({ status: 'error' });
+                  } else {
+                    db.commit(function (err) {
+                      if (err) {
+                        return db.rollback(function () {
+                          throw err;
+                        });
+                      }
+                    });
+                    res.status(200).json(result);
+                  }
+                })
+              }
+            })
+        }
+      })
+    }
+  })
 
 
   router.get('/getJobs', function (req, res, next) {

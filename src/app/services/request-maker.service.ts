@@ -47,6 +47,10 @@ export class RequestMakerService {
     return this.http.post(api + "/sendApplication", {email:userEmail, jobID:id})
   }
 
+  updateUser(email:string, newUser:SiteUser){
+    return this.http.post(api + "/updateUser", {oldEmail:email, newUserInfo:newUser})
+  }
+
 
   private delJobErr(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

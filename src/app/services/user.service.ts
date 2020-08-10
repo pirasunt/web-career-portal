@@ -52,6 +52,11 @@ export class UserService {
 
   }
 
+  //update with Deep copy
+  updateUser(newUser:SiteUser){
+    this.currentUser = JSON.parse(JSON.stringify(newUser))
+  }
+
   //Returns a DEEP COPY of SiteUser
   getSiteUser():SiteUser{
     return JSON.parse(JSON.stringify(this.currentUser))

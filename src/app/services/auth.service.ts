@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { RequestMakerService } from './request-maker.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from 'src/app/services/user.service'
+import { SiteUser } from '../models/site-user';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,7 @@ export class AuthService {
           const userData = {
             userData:response.u
           }
+          console.log(userData)
           localStorage.setItem('token', JSON.stringify(tokenStorage)); //save the login token in user's local storage. Valid for 24hours
           localStorage.setItem('user', JSON.stringify(userData)); //saves login info to local storage
           this.router.navigateByUrl('/');
@@ -67,6 +69,42 @@ export class AuthService {
         }
         }
       });
+    }
+  }
+
+  refresh(user:SiteUser) {
+
+    if(user.userType =="EMPLOYER") {
+      localStorage.setItem('user', JSON.stringify({
+        userData:{
+          accountBalance:user.accountBalance,
+          email: user.email,
+          employerCategory: user.employer.category,
+          employerIndustry: user.employer.industry,
+          fullName: user.fullName,
+          password: user.accPassword,
+          telephoneNum: user.telephoneNum,
+          userType: user.userType,
+        }
+      }));
+    }
+
+    if(user.userType =="EMPLOYEE") {
+
+      localStorage.setItem('user', JSON.stringify({
+        userData:{
+          accountBalance:user.accountBalance,
+          email: user.email,
+          employeeCategory: user.employee.category,
+          fullName: user.fullName,
+          isActive:user.employee.isActive,
+          password: user.accPassword,
+          qualifications: user.employee.qualifications,
+          telephoneNum: user.telephoneNum,
+          userType: user.userType,
+        }
+      }));
+
     }
   }
 

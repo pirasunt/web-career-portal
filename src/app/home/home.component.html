@@ -2,7 +2,7 @@
     <h4>Welcome {{siteUser.fullName}}</h4> <br>
 
     <div *ngIf="siteUser.userType == 'EMPLOYEE'" class="container">
-        <p class="lead">Account Type: {{siteUser.employee.category}}</p>
+        <p class="lead">Account Type: {{siteUser.employee.category}} &nbsp;<button type="button" class="btn btn-outline-primary" (click)="goTo('account-change')">Edit Account</button></p>
 
         <div class="row">
             <div *ngFor="let job of jobs$ | async" class="col-12">
@@ -14,7 +14,7 @@
     </div>
 
     <div *ngIf="siteUser.userType == 'EMPLOYER'" class="container">
-        <p class="lead">Account Type: {{siteUser.employer.category}}</p>
+        <p class="lead">Account Type: {{siteUser.employer.category}} &nbsp;<button type="button" class="btn btn-outline-primary" (click)="goTo('account-change')">Edit Account</button></p>
 
         <div class="row">
             <div class="col">

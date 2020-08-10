@@ -45,7 +45,10 @@ export class HomeComponent implements OnInit {
 
   }
 
-
+  goTo(arg: string) {
+    this.router.navigate(["/" + arg])
+  }
+  
   onSubmit() {
 
     this.requestMaker.createJob({
