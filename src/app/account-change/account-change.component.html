@@ -1,8 +1,9 @@
 <div class="container">
-   
+
     <div class="row">
-        
-        <h2>User Information</h2> &nbsp;<button class="btn btn-primary" type ="button" (click)="goTo('')">Home</button><br>
+
+        <h2>User Information</h2> &nbsp;<button class="btn btn-primary" type="button"
+            (click)="goTo('')">Home</button><br>
 
 
     </div>
@@ -130,8 +131,9 @@
                         <h4 *ngIf="isSubmitted">Changes have been saved</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click) ="closePrompt()">Close</button>
-                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            (click)="closePrompt()">Close</button>
+
                     </div>
                 </div>
             </div>
@@ -139,5 +141,80 @@
     </div>
 
     <hr>
+    <div class="row">
+        <h2>Payment Info</h2><br>
+    </div>
+    <p class="lead">Credit Cards</p>
+    <div *ngFor="let card of userService.creditCards$ | async; let i = index" class="row">
+        <b>{{i+1}}.</b> &nbsp;<ul class="list-group list-group-horizontal">
+            <li class="list-group-item">{{card.cardType}}</li>
+            <li class="list-group-item">{{card.cardNum}}</li>
+            <li class="list-group-item">{{card.securityCode}}</li>
+            <li class="list-group-item">{{card.withdrawalType}}</li>
+        </ul>
+        <br>
+
+    </div>
+    <br><br>
+    <p class="lead">Chequing Accounts</p>
+    <div *ngFor="let acc of userService.chequingAccounts$ | async; let i = index" class="row">
+        <b>{{i+1}}.</b> &nbsp;<ul class="list-group list-group-horizontal">
+            <li class="list-group-item">{{acc.accountNum}}</li>
+            <li class="list-group-item">{{acc.institutionNum}}</li>
+            <li class="list-group-item">{{acc.transitNum}}</li>
+            <li class="list-group-item">{{acc.withdrawalType}}</li>
+        </ul>
+        <br>
+
+    </div>
+    <br><br>
+    <div class="row">
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addPayment">Add Payment Method</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Payment Method</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-info" (click)= "changeModal('credit')">Credit Card</button> &nbsp;
+                        <button type="button" class="btn btn-info" (click)= "changeModal('chequing')">Chequing</button>
+                        <form *ngIf="isCredit" [formGroup] ="creditForm" ngNativeValidate (ngSubmit)="submitCredit()">
+
+                            <br>Card Type
+                            <select  formControlName="cardType" class="custom-select" required>
+                                <option value="VISA">VISA</option>
+                                <option value="MASTERCARD">MASTERCARD</option>
+                            </select><br>
+
+
+
+                            <label for="cardNum">Card Number</label>
+                            <input type="number" formControlName="cardNum" class="form-control" required><br>
+
+                            <label for="securityCode">Security Code</label>
+                            <input type="number" formControlName="securityCode" class="form-control" required> <br>
+
+                            Withdrawal Type
+                            <select  formControlName="withdrawalType" class="custom-select" required>
+                                <option value="AUTOMATIC">AUTOMATIC</option>
+                                <option value="MANUAL">MANUAL</option>
+                            </select><br>
+                           <br><button type="submit" class="btn btn-primary">Add Card</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
 
 </div>

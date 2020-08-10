@@ -5,6 +5,8 @@ import { catchError } from 'rxjs/operators';
 import { SiteUser } from '../models/site-user';
 import {Job} from '../models/job'
 import {Application} from '../models/application'
+import { CreditCard } from '../models/credit-card';
+import { ChequingAccount } from '../models/chequing-account';
 
 const api = "http://localhost:8080" //server address + port
 @Injectable({
@@ -49,6 +51,18 @@ export class RequestMakerService {
 
   updateUser(email:string, newUser:SiteUser){
     return this.http.post(api + "/updateUser", {oldEmail:email, newUserInfo:newUser})
+  }
+  
+  getCreditCardInfo(userEmail:string):Observable<CreditCard[]> {
+    return this.http.post<CreditCard[]>(api + "/getCC", {email:userEmail})
+  }
+
+  getChequingInfo(userEmail:string):Observable<ChequingAccount[]> {
+    return this.http.post<ChequingAccount[]>(api + "/getChequing", {email:userEmail})
+  }
+
+  submitCredit(data:any) {
+    return this.http.post(api + "/submitCredit", data)
   }
 
 

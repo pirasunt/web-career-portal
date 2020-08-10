@@ -1,17 +1,34 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { SiteUser } from '../models/site-user';
-import { Employee } from '../models/employee';
-import { Employer } from '../models/employer';
+import { CreditCard } from '../models/credit-card';
+import { ChequingAccount } from '../models/chequing-account';
+import { RequestMakerService } from './request-maker.service';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnInit{
 
   private currentUser:SiteUser;
+  creditCards$:Observable<CreditCard[]>;
+  chequingAccounts$:Observable<ChequingAccount[]>;
 
 
-  constructor() { }
+  constructor(private requestMaker:RequestMakerService) { 
+    
+  }
+  
+  ngOnInit():void {
+
+  }
+
+    getPaymentInfo() {
+    this.creditCards$ = this.requestMaker.getCreditCardInfo(this.currentUser.email)
+    this.chequingAccounts$ = this.requestMaker.getChequingInfo(this.currentUser.email)
+
+  }
 
 
   initializeUser(data:any){

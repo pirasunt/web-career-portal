@@ -13,10 +13,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class AccountChangeComponent implements OnInit {
 
-  constructor(private userService: UserService, private requestMaker: RequestMakerService, private router: Router, private authService: AuthService) {
-
+  constructor(private u: UserService, private requestMaker: RequestMakerService, private router: Router, private authService: AuthService) {
+  this.userService = u
   }
-
+  userService:UserService
   siteUser: SiteUser
   editProfile: FormGroup
   name: FormControl
@@ -27,6 +27,25 @@ export class AccountChangeComponent implements OnInit {
   industry: FormControl
   isSubmitted: boolean = false;
   logoutRequired: boolean = false;
+  isCredit:boolean = true;
+  creditForm= new FormGroup({
+    cardType : new FormControl(''),
+    cardNum : new FormControl(''),
+    securityCode: new FormControl(''),
+    withdrawalType: new FormControl('')
+  })
+
+  submitCredit() {
+    this.requestMaker.submitCredit({
+      cardType: this.creditForm.get("cardType").value,
+      cardNum: this.creditForm.get("cardNum").value,
+      securityCode: this.creditForm.get("securityCode").value,
+      withdrawalType: this.creditForm.get("withdrawalType").value,
+      email: this.siteUser.email
+    }).subscribe(resp => {
+      window.location.reload()
+    })
+  }
 
   ngOnInit(): void {
 
@@ -53,6 +72,12 @@ export class AccountChangeComponent implements OnInit {
         industry: new FormControl(this.siteUser.employer.industry)
       })
     }
+
+    this.userService.getPaymentInfo();
+    this.userService.creditCards$.subscribe(rsep =>{
+      console.log(rsep)
+    })
+
   }
 
   onSubmit() {
@@ -92,6 +117,17 @@ export class AccountChangeComponent implements OnInit {
 
   goTo(arg:string){
     this.router.navigate(["/" + arg])
+  }
+
+  changeModal(arg:string) {
+    if(arg == "credit"){
+      this.isCredit = true;
+    }
+
+    if(arg == "chequing") {
+      this.isCredit = false;
+    }
+
   }
 
 }

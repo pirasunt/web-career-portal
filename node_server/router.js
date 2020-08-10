@@ -61,7 +61,7 @@ function createRouter(db) {
                 console.log(err);
                 return res.status(500).json({ status: 'error' });
               } else {
-                db.query("UPDATE Employee SET qualifications=? WHERE email=?", [req.body.newUserInfo.employee.category, req.body.newUserInfo.email], function (err, result) {
+                db.query("UPDATE Employee SET qualifications=? WHERE email=?", [req.body.newUserInfo.employee.qualifications, req.body.newUserInfo.email], function (err, result) {
                   if (err) {
                     db.rollback();
                     console.log(err);
@@ -125,6 +125,78 @@ function createRouter(db) {
 
     })
   });
+
+  router.post('/getCC', function(req, res){
+    db.query("SELECT PaymentMethod.paymentID, withdrawalType, cardNum, cardType, securityCode FROM PaymentMethod INNER JOIN CreditCard ON PaymentMethod.paymentID=CreditCard.paymentID WHERE PaymentMethod.paymentID IN (SELECT PaymentMethod.paymentID FROM PaysBy WHERE email=?)", [req.body.email], function(err, result){
+      if(err) {
+        console.log(err)
+        res.status(500).send()
+      } else(
+        res.status(200).send(result)
+      )
+    })
+  })
+
+  router.post('/submitCredit', function(req,res) {
+
+
+    db.beginTransaction(function (err) {
+      if(err) {
+        console.log(err)
+        throw err;
+      } else {
+        db.query("INSERT INTO PaymentMethod(withdrawalType) VALUES(?);", [req.body.withdrawalType], function(err, result) {
+          if(err) {
+            db.rollback
+            console.log(err)
+            res.status(500).send()
+          } else{
+            var insertedVal = result.insertId
+            db.query("INSERT INTO PaysBy(paymentID, email) VALUES(?,?);", [insertedVal, req.body.email], function(err, result) {
+        
+              if(err) {
+                db.rollback
+                console.log(err)
+                res.status(500).send()
+              } else {
+                db.query("INSERT INTO CreditCard(cardNum, cardType, securityCode, paymentID) VALUES(?,?,?,?)",[req.body.cardNum, req.body.cardType, req.body.securityCode, insertedVal], function(err, result) {
+                  
+                  if(err) {
+                    db.rollback
+                    console.log(err)
+                    console.log(insertedVal)
+                    res.status(500).send()
+                  } else {
+                    db.commit(function (err) {
+                      if (err) {
+                        return db.rollback(function () {
+                          throw err;
+                        });
+                      }
+                    });
+                    res.status(200).json(result);
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+
+    })
+
+  })
+
+  router.post('/getChequing', function(req, res){
+    db.query("SELECT PaymentMethod.paymentID, withdrawalType, accountNum, institutionNum, transitNum FROM PaymentMethod INNER JOIN ChequingAccount ON PaymentMethod.paymentID=ChequingAccount.paymentID WHERE PaymentMethod.paymentID IN (SELECT PaymentMethod.paymentID FROM PaysBy WHERE email=?)", [req.body.email], function(err, result){
+      if(err) {
+        console.log(err)
+        res.status(500).send()
+      } else(
+        res.status(200).send(result)
+      )
+    })
+  })
 
   router.get('/getApplications', function (req, res) {
     db.query("SELECT * FROM AppliesTo", function (err, results) {
