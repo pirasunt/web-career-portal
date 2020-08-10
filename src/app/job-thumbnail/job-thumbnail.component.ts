@@ -66,6 +66,15 @@ export class JobThumbnailComponent implements OnInit {
   }
 
   sendApplication() {
+    if(this.siteUser.employee.category == "BASIC" || (this.siteUser.employee.category =="PRIME" && this.currentUserAppliedJobs.length >= 5)) {
+
+      if(this.siteUser.employee.category =="BASIC"){
+        alert("Your membership does not allow you to apply for jobs ")
+      } else {
+        alert("You have reached your limit of 5 job applications")
+      }
+     
+    } else
     this.requestMaker.sendApplication(this.siteUser.email, this.job.jobID).subscribe(resp => {
       alert("Application sent to Employer")
       this.reloadComponent()
